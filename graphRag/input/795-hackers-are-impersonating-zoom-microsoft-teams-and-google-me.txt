@@ -1,0 +1,10 @@
+Title: Hackers are impersonating Zoom, Microsoft Teams, and Google Meet for phishing scams
+Author: Jay Peters
+Publisher: The Verge
+Publish Date: 5/12/20
+URL: https://www.theverge.com/2020/5/12/21254921/hacker-domains-impersonating-zoom-microsoft-teams-google-meet-phishing-covid-19
+Country: USA
+Political Bias: Left-center
+Reliability: 1
+
+Hackers have registered domains posing as Zoom, Microsoft Teams, and Google Meet-related URLs, according to a new report from Check Point Research. As significantly more people are using these videoconferencing services during the COVID-19 pandemic, the domains could be used to pose as official links, potentially tricking people into downloading malware or accidentally giving a bad actor access to personal information. In just the last three weeks, for example, 2,449 Zoom-related domains have been registered, and Check Point Research determined that 32 of those domains are malicious and 320 are “suspicious.” And in one instance of attempted phishing, hackers sent an email that looks like an official email from Microsoft Teams, but a button in the email to “open” Teams was actually a malicious URL that downloaded malware to the user’s computer. Hackers are also sending phishing emails posing as the World Health Organization Hackers are also sending phishing emails posing as the World Health Organization with an attached file that downloads malware when clicked, Check Point Research said. The report also included the text of two emails soliciting donations for the WHO and the United Nations, but requesting that the donations be sent to “several known compromised” bitcoin wallets. Google has observed donation scams in emails impersonating organizations like the WHO as well, and said in mid-April that it saw more than 18 million daily malware and phishing emails related to COVID-19 in just a week. The issue is prevalent enough that the WHO has an entire page dedicated to information about COVID-19 hackers and scammers.

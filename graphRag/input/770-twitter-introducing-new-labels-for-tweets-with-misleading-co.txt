@@ -1,0 +1,10 @@
+Title: Twitter introducing new labels for tweets with misleading COVID-19 information
+Author: Jay Peters
+Publisher: The Verge
+Publish Date: 5/11/20
+URL: https://www.theverge.com/2020/5/11/21254733/twitter-covid-19-misleading-information-label-warnings-misinformation
+Country: USA
+Political Bias: Left-center
+Reliability: 1
+
+Twitter is introducing new labels to mark tweets with COVID-19-related misinformation, the company announced today. The labels should make it easier tell if a tweet has a misleading or unverified claim and point you toward resources about COVID-19. The new labels will link to a page curated by Twitter or to an “external trusted source” that can provide information about the claims made in the tweet, according to Twitter. Here’s what the new labels look like: Twitter may also apply a warning onto a tweet if it conflicts with COVID-19 guidance from public health experts. That warning will cover the tweet with a message from Twitter, and to see the actual tweet, you’ll need to specifically click into it. Here is what that warning looks like: The company also laid out a rubric for how it will evaluate taking action on a tweet with false or misleading content across three different categories and based on the tweet’s “propensity for harm.” Here’s that rubric: Twitter started applying a new label to tweets “containing synthetic and manipulated media” as of February of this year. Twitter has also pledged to remove misleading COVID-19-related tweets that could incite people to engage in what it deems “harmful activity.”

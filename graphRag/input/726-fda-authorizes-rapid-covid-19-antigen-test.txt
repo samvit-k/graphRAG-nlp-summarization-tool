@@ -1,0 +1,10 @@
+Title: FDA authorizes rapid COVID 19 antigen test
+Author: Kim Lyons
+Publisher: The Verge
+Publish Date: 5/9/20
+URL: https://www.theverge.com/2020/5/9/21253105/fda-covid-19-antigen-test-coronavirus
+Country: USA
+Political Bias: Left-center
+Reliability: 1
+
+The Food and Drug Administration has granted the first emergency use authorization to diagnostic healthcare company Quidel Corp. for the first COVID-19 antigen test, the agency announced. Antigen tests can quickly detect the coronavirus, but are generally considered less accurate than other types of tests that search out the virus. Antigen tests for COVID-19 are akin to rapid flu or strep tests. This test can be run in a lab or in a doctor’s office, and only takes about 15 minutes. The tests typically used to diagnose COVID-19, called PCR tests, search out the genetic sequence of the coronavirus in a swab collected from a patient’s nose or throat. Antigen tests, on the other hand, look for molecules on the surface of the virus. They return results much more quickly, but are less accurate. If the test says a patient sample is positive, it’s likely to be correct. But Quidel’s test has a high rate of false negatives: it only correctly identifies patient samples that contains the coronavirus 85 percent of the time, the company’s chief executive told the Wall Street Journal. The FDA says negative results from an antigen test should be confirmed with a PCR test. Quidel’s CEO told the WSJ the company is ramping up manufacturing to increase production of the test, officially called the Sofia 2 SARS Antigen FIA, with a goal of producing 1 million per week.

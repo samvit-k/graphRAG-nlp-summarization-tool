@@ -1,0 +1,10 @@
+Title: Chicago researchers develop new tool to battle coronavirus
+Author: Mitch Dudek
+Publisher: Chicago Sun-Times
+Publish Date: 5/4/20
+URL: https://chicago.suntimes.com/2020/5/4/21247494/chicago-researchers-develop-new-tool-to-battle-coronavirus
+Country: USA
+Political Bias: Left-center
+Reliability: 1
+
+A group of Chicago researchers hope an electronic monitor that affixes to the throat like a band-aid will aid in the detection of coronavirus cases among health-care workers who might not recognize subtle symptoms. The device will also be used to track the recovery of patients from their homes and hospital beds. “It’s like a wireless stethoscope glued to your neck,” John A. Rogers, a Northwestern University professor of biomedical engineering who partners with the Shirley Ryan AbilityLab. The device monitors breathing, coughing, temperature and heart rate — data that is uploaded and made available to doctors every night when the wearer puts it on a charging dock. Though originally designed to help monitor the recovery of stroke patients, researchers realized it could be used to measure the vibratory signatures of coronavirus symptoms. The devices are being worn by about 10 doctors and nurses working in Chicago. They’re also on about 20 patients who are recovering at home and in hospital beds. Rogers expects that number to soon grow. Rogers and his team can produce about 100 of the devices a week. If demand outpaces their ability to make the devices, Rogers said he’d find a manufacturer who could handle higher quantities.

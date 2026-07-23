@@ -1,0 +1,10 @@
+Title: FDA authorizes CRISPR-based test for COVID-19
+Author: Nicole Wetsman
+Publisher: The Verge
+Publish Date: 5/7/20
+URL: https://www.theverge.com/2020/5/7/21250487/fda-crispr-test-coronavirus-covid-19
+Country: USA
+Political Bias: Left-center
+Reliability: 1
+
+The Food and Drug Administration has authorized a COVID-19 test that uses the gene-editing technology CRISPR and returns results in around one hour. Though the test was only authorized for emergency use, this marks the first time the FDA has allowed a CRISPR-based tool to be used in patients. CRISPR technology can quickly find and link onto any genetic sequence in a specimen. The new test, created by the biotech company Sherlock Biosciences, uses one molecule to search for the virus gene in a patient sample. Then, if the molecule finds the gene, it releases a signal that the system can detect. The standard method for COVID-19 testing, called PCR, also looks for tiny bits of the virus gene. However, that method is slow and takes specialized equipment to run. The recently approved Abbott test gives results in minutes but can only run on that company’s platform. CRISPR-based techniques, on the other hand, are relatively fast and only need basic equipment found in most labs. Experts say that the United States needs to run hundreds of thousands more tests each day to control the pandemic. Rapid, simple tests could help reach that scale. Sherlock Biosciences said in a press release that it is working to produce and distribute testing kits. Two other groups, at Mammoth Biosciences and MIT, are also working on CRISPR-based tests.

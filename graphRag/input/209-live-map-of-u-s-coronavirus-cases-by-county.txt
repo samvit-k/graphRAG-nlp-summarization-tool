@@ -1,0 +1,9 @@
+Title: Live map of U.S. coronavirus cases by county
+Publisher: Chicago Sun-Times
+Publish Date: 4/1/20
+URL: https://chicago.suntimes.com/coronavirus-data/2020/4/1/21203507/united-states-coronavirus-map-cases-by-county-live-updates
+Country: USA
+Political Bias: Left-center
+Reliability: 1
+
+The novel coronavirus COVID-19 is spreading quickly across the United States and the globe, with new cases and deaths announced every day. New York, Michigan and Louisiana have been fighting particularly severe outbreaks, and the virus is expanding in other areas of the country every day. Keep track of how many cases and deaths have occurred in each region of the U.S. using the map below, which breaks down cases across the nation by each county. The map is maintained by the Associated Press and is updated every hour. Data for the map is provided by Johns Hopkins University. Map not displaying properly? Click here.

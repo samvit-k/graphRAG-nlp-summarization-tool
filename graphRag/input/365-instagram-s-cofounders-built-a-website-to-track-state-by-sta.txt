@@ -1,0 +1,10 @@
+Title: Instagram’s cofounders built a website to track state-by-state spread of COVID-19
+Author: Kim Lyons
+Publisher: The Verge
+Publish Date: 4/18/20
+URL: https://www.theverge.com/2020/4/18/21226483/instagram-cofounders-covid-19-systrom-krieger
+Country: USA
+Political Bias: Left-center
+Reliability: 1
+
+Using data from the Covid Tracking Project, the cofounders of Instagram created a website to track the state-by-state spread of COVID-19 in the US, Bloomberg News reported. The website, RT.live, uses a statistic known in epidemiology as the effective reproduction number. It tracks the average number of people who catch the virus from one infected person. “We’re trying to take what is a complex topic and boil it down to a simple number that anyone can view from their home,” former Instagram CEO Kevin Systrom told Bloomberg. The Covid Tracking Project, where RT.live gets its data, is an all-volunteer initiative that collects data from trustworthy known sources, such as public health authorities, and reports state-by-state details about the number of COVID-19 tests given, whether they’re positive or negative, the number of hospitalizations and number of deaths. Systrom told Bloomberg the goal with RT.live was to help give people a better understanding of what the spread of the virus looks like at the local level. He and fellow Instagram cofounder Mike Krieger left the company in 2018, six years after it was acquired by Facebook. Neither one has a background in health or epidemiology, according to Bloomberg.

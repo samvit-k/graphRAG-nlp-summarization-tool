@@ -1,0 +1,10 @@
+Title: Instagram won’t approve new augmented reality effects because of COVID-19 limitations
+Author: Ashley Carman
+Publisher: The Verge
+Publish Date: 3/19/20
+URL: https://www.theverge.com/2020/3/19/21186824/instagram-facebook-spark-ar-augmented-reality-effects-coronavirus-limitations
+Country: USA
+Political Bias: Left-center
+Reliability: 1
+
+Instagram and Facebook won’t feature any new augmented reality effects in the immediate future. In an update posted to its Facebook Group for people who make filters, the company said it’s sending its reviewers home because of COVID-19 infection concerns. When home, they won’t be able to approve or publish new effects. “We’re actively exploring ways to offset this disruption and let creators get back to publishing,” the statement says. “We can’t yet provide exact timing on when this will happen, but we’ll share updates in Spark AR Hub when we’re able to.” Spark AR is the software used to make Facebook and Instagram effects. Some automated systems will still be in place, Facebook says, so creators will be able to at least “get feedback on some aspects” of their submissions. This week, Facebook sent its content moderators home, after The Intercept reported that it wasn’t allowing them to leave. They’re not actually allowed to work remotely, however. Facebook says it’ll also continue to pay these workers during this time. Other tech companies have made similar decisions. In addition to barring content moderators from coming to the office, this situation also could prevent creators from making money on sponsored content. Brands often pay AR effects creators to build filters for them, and if those can’t publish, the brands might not be willing to pay. The trickle-down effect might mean creators can’t keep paying their own bills simply because Facebook can’t approve AR effects remotely.

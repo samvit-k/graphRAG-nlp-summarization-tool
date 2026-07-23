@@ -1,0 +1,10 @@
+Title: No evidence hydroxychloroquine treats coronavirus, new study shows
+Author: [‘Rachel Roubein']
+Publisher: Politico
+Publish Date: 5/22/20
+URL: https://www.politico.com/news/2020/05/22/hydroxychloroquine-chloroquine-coronavirus-study-274668
+Country: USA
+Political Bias: Center
+Reliability: 1
+
+About 15,000 patients received the chloroquine drugs or a combination with the antibiotics azithromycin or clarithromycin, while the remaining 81,000 did not. The findings echo smaller studies of patients in New York and Europe. Patients who took the drugs were more likely to die in the hospital, the researchers found. While that may be due in part to the likelihood that those medicines were given to patients who were sicker, the authors of the study estimated that the excess risk ranged from 34 to 45 percent. However, the study’s authors pushed for urgent randomized, controlled trials, saying it’s not possible in an observational study to exclude the possibility that other factors were responsible for the apparent link between survival rate and these drugs. People taking hydroxychloroquine in combination with an antibiotic appeared to have the highest increased risk of heart rhythm complications, the study found. Chloroquine is approved for malaria, and hydroxychloroquine for autoimmune diseases like Lupus; the authors said the study does not suggest those patients should stop taking the drugs as prescribed. The FDA issued an emergency authorization for use in coronavirus patients in late March , but has since received criticism for doing so given the scant evidence the drugs worked. Sarah Wheaton contributed to this report.

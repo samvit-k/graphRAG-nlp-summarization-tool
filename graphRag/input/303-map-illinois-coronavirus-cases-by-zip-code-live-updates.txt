@@ -1,0 +1,9 @@
+Title: MAP: Illinois coronavirus cases by zip code (live updates)
+Publisher: Chicago Sun-Times
+Publish Date: 4/13/20
+URL: https://chicago.suntimes.com/coronavirus-data/2020/4/13/21219237/illinois-coronavirus-cases-zip-code-map-search
+Country: USA
+Political Bias: Left-center
+Reliability: 1
+
+The novel coronavirus COVID-19 is spreading quickly across the state, the country and the globe, with new cases announced every day. Keep track of where the coronavirus is spreading in Illinois with a live map of confirmed cases compiled by the Chicago Reporter. Use the dropdown menu to find your zip code. Data for the following graphic was provided by the Office of the Governor and the Illinois Department of Public Health.

@@ -1,0 +1,10 @@
+Title: A guide to the COVID-19 pandemic
+Author: Grayson Blackmon
+Publisher: The Verge
+Publish Date: 3/12/20
+URL: https://www.theverge.com/2020/3/12/21175486/coronavirus-covid-19-pandemic-cases-outbreak-guide-information-who-cdc
+Country: USA
+Political Bias: Left-center
+Reliability: 1
+
+In December 2019, a new coronavirus appeared in Wuhan, China. It has since infected thousands across the globe, and the World Health Organization declared it a pandemic, which refers to how far it’s spread. The new coronavirus causes a disease called COVID-19, with symptoms such as fever, cough, and difficulty breathing. It can be deadly, particularly in people over the age of 60 or with underlying health conditions. In response, US tech companies have canceled events and ramped up efforts to avoid spreading misinformation. Scientists have tried to figure out exactly how the virus works, in the hopes that we can eventually develop medicine. And many people are staying at home to try to slow down the pace at which the disease goes through the population. We’ve rounded up our reporting on the virus, the illness it causes, things you can do to protect yourself, and the way the tech sector has been affected here.

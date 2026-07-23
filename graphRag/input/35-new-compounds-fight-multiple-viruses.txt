@@ -1,0 +1,8 @@
+Title: New Compounds Fight Multiple Viruses
+Publisher: WorldHealth.Net
+Publish Date: 3/2/20
+URL: https://www.worldhealth.net/news/new-compounds-fight-multiple-viruses/
+Country: USA
+Reliability: 0
+
+According to a report in ACS’ Journal of Medicinal Chemistry researchers have discovered compounds that are capable of blocking replication of similar coronaviruses as well as other disease causing viruses; but the compounds have not been tested in humans yet. 2019-nCoV is a close relative to SARS as well as MERS-CoV, all of these viruses cause flu-like symptoms as well as frequently leading to pneumonia, and there have not been any effective treatments developed as of yet. Rolf Hilgenfeld, Hong Liu and colleagues are working to develop a broad spectrum antiviral that can target all coronaviruses as well as enteroviruses, all of which share similar protein cutting main protease enzymes in coronaviruses and the 3C protease in enteroviruses that are essential for the viral replication. X-ray crystal structures of the proteases were examined which was followed by creating a series of a-ketoamide compounds that are predicted to fit in the enzyme’s active sites to interfere with their function. Test tube and petri dish testing identified one versatile inhibitor that blocked multiple coronaviruses and enteroviruses, as well as another molecule that showed strong activity against MERS-CoV with moderate activity against other viruses. Due to the main proteases of SARS-CoV1, MERS-CoV, and SARS-CoV-2 being very similar the inhibitors will likely have good antiviral activity against the Wuhan coronavirus, according to the researchers. The next phase will be to test these inhibitors in animal models of disease before eventually moving onto human testing.
