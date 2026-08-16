@@ -7,7 +7,7 @@ from pathlib import Path
 import numpy as np
 import pandas as pd
 
-REPO_ROOT = Path(__file__).resolve().parents[1]
+REPO_ROOT = Path(__file__).resolve().parents[2]
 DATA_DIR = REPO_ROOT / "user-data" / "ebnerd_demo"
 OUTPUT_DIR = REPO_ROOT / "user-data" / "ebnerd_csv"
 

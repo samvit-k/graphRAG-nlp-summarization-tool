@@ -13,7 +13,7 @@ import pandas as pd
 from dotenv import load_dotenv
 from pypdf import PdfReader, PdfWriter
 
-REPO_ROOT = Path(__file__).resolve().parents[1]
+REPO_ROOT = Path(__file__).resolve().parents[2]
 ENV_PATH = REPO_ROOT / ".env"
 DATA_DIR = REPO_ROOT / "user-data" / "anes_timeseries_2024_csv"
 DEFAULT_INPUT = DATA_DIR / "anes_timeseries_2024_csv_20260519.csv"

@@ -1,0 +1,11 @@
+persona_id,anes_case_id,ebnerd_user_id,pairing_method,pairing_seed
+P01,140074,2212062,fixed_seed_random,42
+P02,140345,168769,fixed_seed_random,42
+P03,141703,1148586,fixed_seed_random,42
+P04,141780,46534,fixed_seed_random,42
+P05,141844,1331854,fixed_seed_random,42
+P06,142588,636116,fixed_seed_random,42
+P07,142592,2521826,fixed_seed_random,42
+P08,214234,1072326,fixed_seed_random,42
+P09,227659,808364,fixed_seed_random,42
+P10,228108,1193431,fixed_seed_random,42
