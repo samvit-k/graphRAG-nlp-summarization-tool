@@ -2,24 +2,20 @@
 
 from __future__ import annotations
 import argparse
-import base64
-import io
 import json
-import os
+import re
 import sys
 from pathlib import Path
-import anthropic
 import pandas as pd
-from dotenv import load_dotenv
-from pypdf import PdfReader, PdfWriter
+from pypdf import PdfReader
 
 REPO_ROOT = Path(__file__).resolve().parents[2]
-ENV_PATH = REPO_ROOT / ".env"
 DATA_DIR = REPO_ROOT / "user-data" / "anes_timeseries_2024_csv"
 DEFAULT_INPUT = DATA_DIR / "anes_timeseries_2024_csv_20260519.csv"
 DEFAULT_OUTPUT = DATA_DIR / "anes_2024_selected_clean.csv"
 DEFAULT_DECODED = DATA_DIR / "anes_2024_selected_decoded.csv"
 CODEBOOK_PDF = DATA_DIR / "anes_timeseries_2024_userguidecodebook_20260519.pdf"
+DEFAULT_CODEBOOK_JSON = DATA_DIR / "anes_2024_codebook.json"
 
 ANES_MISSING_CODES = {
     "-1": "Inapplicable",
@@ -69,83 +65,142 @@ COLUMNS = {ID_COL: "Case ID", **PROFILE_REQUIRED, **PROFILE_OPTIONAL, **POLITICA
 
 REQUIRED = {**PROFILE_REQUIRED, **POLITICAL_REQUIRED}
 
+COLUMN_NAMES = {
+    ID_COL: "Case ID",
+    "V241458x": "Respondent Age on Election Day",
+    "V241551": "Respondent Gender",
+    "V241488x": "Respondent Occupation Status",
+    "V241465x": "Respondent Education Level (5 Category)",
+    "V241567x": "Total Household Income (6 Category)",
+    "V243001": "Sample State (Postal Abbreviation)",
+    "V243007": "Census Region",
+    "V243002": "Sample State (FIPS Code)",
+    "V241227x": "Party Identification (Summary)",
+    "V241177": "Liberal-Conservative Self-Placement (7pt)",
+    "V241004": "Frequency of Attention to Politics and Elections",
+    "V241005": "Interest in Following Campaigns",
+    "V241012": "Registered to Vote",
+    "V242010": "Talked to Anyone About Voting for/Against Party or Candidate",
+    "V242011": "Attended Online Political Meetings/Rallies/Speeches/Fundraisers",
+    "V242012": "Attended In-Person Political Meetings/Rallies/Speeches/Dinners",
+    "V242013": "Wore Campaign Button or Displayed Sign/Sticker",
+    "V242014": "Did Other Work for Party or Candidate",
+    "V242015": "Contributed Money to Individual Candidate",
+    "V242020": "Contributed Money to Political Party",
+    "V242065": "Voted in 2024 Election",
+}
+
+PASSTHROUGH = {ID_COL, "V241458x", "V243001"}
+
 SAMPLE_SIZE = 10
 RANDOM_SEED = 2024
 
-MODEL = "claude-sonnet-5"
-MAX_TOKENS = 16000
-DECODED_SCHEMA = {
-    "type": "object",
-    "properties": {
-        "columns": {"type": "array", "items": {"type": "string"}},
-        "rows": {"type": "array", "items": {"type": "array", "items": {"type": "string"}}},
-    },
-    "required": ["columns", "rows"],
-    "additionalProperties": False,
-}
-SYSTEM_PROMPT = """You are decoding a small subset of the ANES 2024 Time Series dataset using the official ANES 2024 codebook provided with the request.
+LIGATURES = {"ﬀ": "ff", "ﬁ": "fi", "ﬂ": "fl", "ﬃ": "ffi", "ﬄ": "ffl", "ﬅ": "st"}
+PUNCTUATION = str.maketrans({"‘": "'", "’": "'", "“": '"', "”": '"', "‐": "-", "‑": "-", "–": "-", "—": "-", " ": " "})
+VARIABLE_HEADER = re.compile(r"^(V\d{6}[a-z]?)(?=[A-Z])(.*)$")
+SECTION_HEADER = re.compile(
+    r"^(Value Labels|Survey Question\(s\)|Question|Universe|Randomization|Response Order|Variable Note|Note:|Source)\s*(.*)$"
+)
+VALUE_LABEL = re.compile(r"(?:^|(?<=\s{2}))(-?\d+)\.\s+(?=\S)")
+BANNERS = ("VARIABLES", "USER GUIDE", "CODEBOOK", "APPENDIX")
+INTEGER = re.compile(r"^[+-]?\d+$")
 
-Your task is strictly limited to translating ANES variable IDs and coded values into their documented human-readable meanings.
+def normalize(text: str) -> str:
+    for ligature, plain in LIGATURES.items():
+        text = text.replace(ligature, plain)
+    return text.translate(PUNCTUATION)
 
-For each column in the provided CSV:
+def is_page_furniture(line: str) -> bool:
+    banner = re.sub(r"^\d+\s+|\s+\d+$", "", line).strip()
+    return bool(banner) and banner == banner.upper() and banner.endswith(BANNERS)
 
-1. Find the exact variable in the ANES 2024 codebook.
-2. Replace the cryptic ANES variable ID with a concise, readable column name based on the codebook definition.
-3. Replace each coded categorical value with its exact documented response label from the codebook.
-4. Leave inherently numeric values, such as respondent age, as numeric values when the codebook indicates that the number itself is the substantive value.
-5. Preserve meaningful special responses exactly as documented. For example, do not reinterpret values such as 'Haven't thought much about this' as neutral or missing.
-6. Do not infer, guess, summarize, normalize, or invent any respondent information.
-7. Do not change the selected respondents or add/remove rows.
-8. Do not use general political knowledge to interpret a code. Use only the supplied ANES codebook.
-9. If a variable or value cannot be confidently matched to the codebook, preserve the original ANES variable name or coded value rather than guessing.
+def codebook_lines(pdf_path: Path):
+    for page in PdfReader(str(pdf_path)).pages:
+        for line in normalize(page.extract_text() or "").splitlines():
+            if line.strip():
+                yield line.strip()
 
-Return only the fully decoded CSV with the same 10 rows and the same number of columns as the input. Do not include explanations, markdown, commentary, or additional text."""
+def add_value_labels(entry: dict, text: str, continuation: bool = False) -> None:
+    hits = list(VALUE_LABEL.finditer(text))
+    if not hits:
+        if continuation and entry["value_labels"]:
+            last = next(reversed(entry["value_labels"]))
+            entry["value_labels"][last] = f"{entry['value_labels'][last]} {text}".strip()
+        return
+    for i, match in enumerate(hits):
+        end = hits[i + 1].start() if i + 1 < len(hits) else len(text)
+        entry["value_labels"][match.group(1)] = text[match.end():end].strip()
 
-def load_api_key() -> str:
-    load_dotenv(ENV_PATH)
-    return os.environ.get("ANTHROPIC_API_KEY", "").strip()
+def parse_codebook(pdf_path: Path, wanted: set[str]) -> dict[str, dict]:
+    variables: dict[str, dict] = {}
+    entry: dict | None = None
+    section: str | None = None
+    for line in codebook_lines(pdf_path):
+        header = VARIABLE_HEADER.match(line)
+        if header:
+            if header.group(1) not in wanted:
+                entry = None
+                continue
+            entry = variables.setdefault(header.group(1), {"label": "", "value_labels": {}})
+            entry["label"] = header.group(2).strip()
+            section = "Title"
+            continue
+        if entry is None or is_page_furniture(line):
+            continue
+        heading = SECTION_HEADER.match(line)
+        if heading:
+            section, body = heading.group(1), heading.group(2)
+            if section == "Value Labels" and body:
+                add_value_labels(entry, body)
+        elif section == "Value Labels":
+            add_value_labels(entry, line, continuation=True)
+        elif section == "Title":
+            joiner = "" if entry["label"].endswith("-") else " "
+            entry["label"] = f"{entry['label']}{joiner}{line}".strip()
+    return variables
 
-def build_client() -> anthropic.Anthropic:
-    return anthropic.Anthropic(api_key=load_api_key())
+def build_codebook(pdf_path: Path) -> dict:
+    parsed = parse_codebook(pdf_path, set(COLUMNS))
+    undocumented = [v for v in COLUMNS if v not in PASSTHROUGH and not parsed.get(v, {}).get("value_labels")]
+    if undocumented:
+        raise SystemExit(f"no value labels found in {pdf_path.name} for: {', '.join(undocumented)}")
+    return {
+        "source": pdf_path.name,
+        "variables": {
+            variable: {
+                "column": COLUMN_NAMES[variable],
+                "label": parsed.get(variable, {}).get("label", ""),
+                "description": COLUMNS[variable],
+                "passthrough": variable in PASSTHROUGH,
+                "value_labels": parsed.get(variable, {}).get("value_labels", {}),
+            }
+            for variable in COLUMNS
+        },
+    }
 
-def codebook_excerpt(pdf_path: Path, variables: list[str]) -> bytes:
-    reader = PdfReader(str(pdf_path))
-    wanted: set[int] = set()
-    for i, page in enumerate(reader.pages):
-        if any(v in (page.extract_text() or "") for v in variables):
-            wanted.update((i, i + 1))
-    writer = PdfWriter()
-    for i in sorted(wanted):
-        if i < len(reader.pages):
-            writer.add_page(reader.pages[i])
-    if not len(writer.pages):
-        raise SystemExit(f"no codebook pages matched the selected variables in {pdf_path.name}")
-    buffer = io.BytesIO()
-    writer.write(buffer)
-    return buffer.getvalue()
-
-def decode_sample(client: anthropic.Anthropic, csv_text: str, pdf_bytes: bytes) -> pd.DataFrame:
-    response = client.messages.create(
-        model=MODEL,
-        max_tokens=MAX_TOKENS,
-        system=SYSTEM_PROMPT,
-        output_config={"format": {"type": "json_schema", "schema": DECODED_SCHEMA}},
-        messages=[{"role": "user", "content": [
-            {"type": "document", "source": {
-                "type": "base64",
-                "media_type": "application/pdf",
-                "data": base64.standard_b64encode(pdf_bytes).decode(),
-            }},
-            {"type": "text", "text":
-                "Decode the CSV below. Return the decoded table as JSON matching the given "
-                "schema: `columns` holds the readable column names in the original order, "
-                "and `rows` holds one array of decoded values per respondent.\n\n" + csv_text},
-        ]}],
-    )
-    if response.stop_reason == "max_tokens":
-        raise SystemExit(f"decoded table was truncated at MAX_TOKENS={MAX_TOKENS}; raise it and rerun")
-    payload = json.loads("".join(b.text for b in response.content if b.type == "text"))
-    return pd.DataFrame(payload["rows"], columns=payload["columns"], dtype=str)
+def decode_sample(sample: pd.DataFrame, codebook: dict) -> pd.DataFrame:
+    decoded: dict[str, list[str]] = {}
+    unmapped: set[str] = set()
+    for variable in sample.columns:
+        entry = codebook["variables"][variable]
+        labels = entry["value_labels"]
+        column = []
+        for case_id, raw in zip(sample[ID_COL], sample[variable]):
+            value = raw.strip()
+            key = str(int(value)) if INTEGER.match(value) else value
+            if not value:
+                column.append("")
+            elif key in labels:
+                column.append(labels[key])
+            elif entry["passthrough"]:
+                column.append(value)
+            else:
+                unmapped.add(f"{variable}={value} (case {case_id})")
+                column.append(value)
+        decoded[entry["column"]] = column
+    if unmapped:
+        raise SystemExit("values absent from the codebook mappings:\n  " + "\n  ".join(sorted(unmapped)))
+    return pd.DataFrame(decoded, dtype=str)
 
 def validate_decoded(decoded: pd.DataFrame, sample: pd.DataFrame) -> pd.DataFrame:
     if decoded.shape != sample.shape:
@@ -185,14 +240,12 @@ def main() -> int:
     parser.add_argument("--output", type=Path, default=DEFAULT_OUTPUT)
     parser.add_argument("--decoded-output", type=Path, default=DEFAULT_DECODED)
     parser.add_argument("--codebook", type=Path, default=CODEBOOK_PDF)
+    parser.add_argument("--codebook-json", type=Path, default=DEFAULT_CODEBOOK_JSON)
     args = parser.parse_args()
 
     for path in (args.input, args.codebook):
         if not path.exists():
             parser.error(f"input file not found: {path}")
-
-    if not load_api_key():
-        parser.error(f"ANTHROPIC_API_KEY is not set (checked env and {ENV_PATH})")
 
     header = pd.read_csv(args.input, nrows=0, encoding="utf-8-sig").columns
     absent = [c for c in COLUMNS if c not in header]
@@ -221,17 +274,17 @@ def main() -> int:
 
     args.output.parent.mkdir(parents=True, exist_ok=True)
     sample.to_csv(args.output, index=False)
-    print(f"Wrote coded sample: {args.output}")
 
-    pdf_bytes = codebook_excerpt(args.codebook, list(COLUMNS))
-    decoded = validate_decoded(
-        decode_sample(build_client(), args.output.read_text(encoding="utf-8"), pdf_bytes),
-        sample,
+    args.codebook_json.parent.mkdir(parents=True, exist_ok=True)
+    args.codebook_json.write_text(
+        json.dumps(build_codebook(args.codebook), indent=2, ensure_ascii=False) + "\n", encoding="utf-8"
     )
+
+    mappings = json.loads(args.codebook_json.read_text(encoding="utf-8"))
+    decoded = validate_decoded(decode_sample(sample, mappings), sample)
 
     args.decoded_output.parent.mkdir(parents=True, exist_ok=True)
     decoded.to_csv(args.decoded_output, index=False)
-    print(f"Wrote decoded sample: {args.decoded_output}")
 
     return 0
 
