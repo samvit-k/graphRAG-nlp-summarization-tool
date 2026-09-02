@@ -6,11 +6,11 @@ import json
 import re
 import sys
 from pathlib import Path
-import pandas as pd
-from pypdf import PdfReader
+import pandas as pd # type: ignore
+from pypdf import PdfReader # type: ignore
 
 REPO_ROOT = Path(__file__).resolve().parents[2]
-DATA_DIR = REPO_ROOT / "user-data" / "anes_timeseries_2024_csv"
+DATA_DIR = REPO_ROOT / "user_data" / "anes_timeseries_2024_csv"
 DEFAULT_INPUT = DATA_DIR / "anes_timeseries_2024_csv_20260519.csv"
 DEFAULT_OUTPUT = DATA_DIR / "anes_2024_selected_clean.csv"
 DEFAULT_DECODED = DATA_DIR / "anes_2024_selected_decoded.csv"
@@ -91,6 +91,23 @@ COLUMN_NAMES = {
 }
 
 PASSTHROUGH = {ID_COL, "V241458x", "V243001"}
+
+# Read and used for completeness screening, but dropped before writing. These stay
+# in REQUIRED deliberately: removing them widens the complete-case pool from 4,130
+# to 4,753 respondents and changes all ten sampled Case IDs.
+SCREENING_ONLY = [
+    "V241004",
+    "V241005",
+    "V241012",
+    "V242010",
+    "V242011",
+    "V242012",
+    "V242013",
+    "V242014",
+    "V242015",
+    "V242020",
+    "V242065",
+]
 
 SAMPLE_SIZE = 10
 RANDOM_SEED = 2024
@@ -271,9 +288,10 @@ def main() -> int:
     audit(clean, "Missingness after filtering")
 
     sample = stratified_sample(clean, SAMPLE_SIZE, RANDOM_SEED)
+    emitted = sample.drop(columns=SCREENING_ONLY)
 
     args.output.parent.mkdir(parents=True, exist_ok=True)
-    sample.to_csv(args.output, index=False)
+    emitted.to_csv(args.output, index=False)
 
     args.codebook_json.parent.mkdir(parents=True, exist_ok=True)
     args.codebook_json.write_text(
@@ -281,7 +299,7 @@ def main() -> int:
     )
 
     mappings = json.loads(args.codebook_json.read_text(encoding="utf-8"))
-    decoded = validate_decoded(decode_sample(sample, mappings), sample)
+    decoded = validate_decoded(decode_sample(emitted, mappings), emitted)
 
     args.decoded_output.parent.mkdir(parents=True, exist_ok=True)
     decoded.to_csv(args.decoded_output, index=False)

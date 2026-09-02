@@ -8,7 +8,7 @@ import sys
 from pathlib import Path
 
 ROOT = Path(__file__).resolve().parents[2]
-CSV_PATH = ROOT / "topic-data" / "recovery" / "recovery-news-data-cleaned.csv"
+CSV_PATH = ROOT / "topic_data" / "recovery" / "recovery_news_data_cleaned.csv"
 OUTPUT_DIR = ROOT / "graphRAG" / "input"
 
 TEXT_COLUMN = "body_text"
