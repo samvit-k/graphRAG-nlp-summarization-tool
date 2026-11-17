@@ -1,0 +1,23 @@
+{
+ "source": "IPTC Media Topics",
+ "url": "https://cv.iptc.org/newscodes/mediatopic/?format=json&lang=en-GB",
+ "language": "en-GB",
+ "version": "2026-09-30T12:00:00+00:00",
+ "retrieved": "2026-11-17",
+ "raw_sha256": "fdeca17fe2a31cf22dc0a2a66ebe4b1c940012ff08d05b02611192721d92738d",
+ "license": "http://creativecommons.org/licenses/by/4.0/",
+ "copyright": "IPTC, International Press Telecommunications Council - https://iptc.org",
+ "attribution": "Media Topics (c) IPTC - International Press Telecommunications Council, licensed under CC BY 4.0",
+ "filters": "retired concepts removed; en-GB prefLabel/definition; broader -> parent; local aliases from topic_aliases.json",
+ "topics": 1059,
+ "topics_per_level": {
+  "1": 17,
+  "2": 120,
+  "3": 504,
+  "4": 364,
+  "5": 49,
+  "6": 5
+ },
+ "aliases_sha256": "0ddd76c88a1d78ecf1a67b8bbd055f43206fb896a3e934ed73537c5aa4b74141",
+ "dictionary_sha256": "8cf72119231ad1071b22e10b0a65d5cc3cb30d7de369fdc8341dda140804f94c"
+}
